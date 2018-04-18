@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    wow: server
+  name: server
+spec:
+  ports:
+  - name: "8085"
+    port: 8085
+    targetPort: 8085
+  - name: "3724"
+    port: 3724
+    targetPort: 3724
+  selector:
+    wow: server
+  type: LoadBalancer

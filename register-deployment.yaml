@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    wow: register
+  name: register
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        wow: register
+    spec:
+      containers:
+      - image: lacsap/cmangos-web-register
+        name: cmangos-classic-register
+        ports:
+        - containerPort: 80
+ #       volumeMounts:
+ #       - mountPath: /var/www/html
+ #         name: register-claim0
+ #         subPath: html
+      restartPolicy: Always
+ #     volumes:
+ #     - name: register-claim0
+ #       persistentVolumeClaim:
+ #         claimName: register-claim0

@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    wow: server
+  name: server
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        wow: server
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 123sqwert!
+        image: lacsap/cmangos-classic
+        name: cmangos-classic-server
+        ports:
+        - containerPort: 8085
+        - containerPort: 3724
+ #       volumeMounts:
+ #       - mountPath: /home/mangos/run/etc/
+ #         name: server-claim0
+      restartPolicy: Always
+ #     volumes:
+ #     - name: server-claim0
+ #       persistentVolumeClaim:
+ #         claimName: server-claim0
