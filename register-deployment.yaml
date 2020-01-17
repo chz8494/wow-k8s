@@ -1,13 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     wow: register
   name: register
+  namespace: wow
 spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      wow: register
   template:
     metadata:
       labels:

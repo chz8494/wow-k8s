@@ -1,0 +1,65 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: http.nginx.wow.8085
+  namespace: kube-system
+  labels:
+    f5type: virtual-server
+data:
+  schema: "f5schemadb://bigip-virtual-server_v0.1.7.json"
+  data: |
+    {
+      "virtualServer": {
+        "backend": {
+          "servicePort": 8085,
+          "serviceName": "wow-server",
+          "healthMonitors": [{
+            "interval": 30,
+            "protocol": "tcp",
+            "timeout": 120
+          }]
+        },
+        "frontend": {
+          "virtualAddress": {
+            "port": 8085,
+            "bindAddr": "10.240.51.10"
+          },
+          "partition": "bare-k8s",
+          "balance": "least-connections-node",
+          "mode": "tcp"
+        }
+      }
+    }
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: http.nginx.wow.3724
+  namespace: kube-system
+  labels:
+    f5type: virtual-server
+data:
+  schema: "f5schemadb://bigip-virtual-server_v0.1.7.json"
+  data: |
+    {
+      "virtualServer": {
+        "backend": {
+          "servicePort": 3724,
+          "serviceName": "wow-server",
+          "healthMonitors": [{
+            "interval": 30,
+            "protocol": "tcp",
+            "timeout": 120
+          }]
+        },
+        "frontend": {
+          "virtualAddress": {
+            "port": 3721,
+            "bindAddr": "10.240.51.10"
+          },
+          "partition": "bare-k8s",
+          "balance": "least-connections-node",
+          "mode": "tcp"
+        }
+      }
+    }

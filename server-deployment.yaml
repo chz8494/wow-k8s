@@ -1,9 +1,10 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     wow: server
   name: server
+  namespace: wow
 spec:
   replicas: 1
   strategy:
@@ -11,6 +12,9 @@ spec:
       maxSurge: 3
       maxUnavailable: 1
     type: RollingUpdate
+  selector:
+    matchLabels:
+      wow: server
   template:
     metadata:
       labels:

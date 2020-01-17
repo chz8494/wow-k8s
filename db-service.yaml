@@ -4,6 +4,7 @@ metadata:
   labels:
     wow: db
   name: db
+  namespace: wow
 spec:
   ports:
   - name: "3306"

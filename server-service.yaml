@@ -3,7 +3,8 @@ kind: Service
 metadata:
   labels:
     wow: server
-  name: server
+  name: wow-server
+  namespace: wow
 spec:
   ports:
   - name: "8085"
@@ -14,4 +15,4 @@ spec:
     targetPort: 3724
   selector:
     wow: server
-  type: LoadBalancer
+  type: ClusterIP
