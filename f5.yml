@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: http.nginx.wow.8085
-  namespace: kube-system
+  namespace: wow
   labels:
     f5type: virtual-server
 data:
@@ -35,7 +35,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: http.nginx.wow.3724
-  namespace: kube-system
+  namespace: wow
   labels:
     f5type: virtual-server
 data:
@@ -54,7 +54,7 @@ data:
         },
         "frontend": {
           "virtualAddress": {
-            "port": 3721,
+            "port": 3724,
             "bindAddr": "10.240.51.10"
           },
           "partition": "bare-k8s",

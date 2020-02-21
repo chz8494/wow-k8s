@@ -10,7 +10,7 @@ items:
     namespace: wow
     annotations:
       virtual-server.f5.com/ip: "controller-default"
-      kubernetes.io/ingress.class: "f5"
+#      kubernetes.io/ingress.class: "f5"
   spec:
     rules:
     - host: wow.k8s.tdlab.ca

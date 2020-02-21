@@ -15,4 +15,4 @@ spec:
     targetPort: 3724
   selector:
     wow: server
-  type: ClusterIP
+  type: LoadBalancer
