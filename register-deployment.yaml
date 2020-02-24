@@ -18,7 +18,8 @@ spec:
         wow: register
     spec:
       containers:
-      - image: lacsap/cmangos-web-register
+#      - image: lacsap/cmangos-web-register
+      - image: chz8494/cmangos-register:latest
         name: cmangos-classic-register
         ports:
         - containerPort: 80

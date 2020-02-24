@@ -7,7 +7,8 @@ metadata:
   namespace: wow
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
+  storageClassName: rook-cephfs
   resources:
     requests:
       storage: 1Gi
@@ -38,7 +39,11 @@ spec:
       - env:
         - name: MYSQL_ROOT_PASSWORD
           value: 123sqwert!
-        image: lacsap/cmangos-classic
+        - name: WOW_SERVER_NAME
+          value: wow.k8s.tdlab.ca
+#        image: lacsap/cmangos-classic
+        image: chz8494/cmangos-classic:latest
+#        image: docker-pull.tdlab.ca/cmangos-classic:latest
         name: cmangos-classic-server
         ports:
         - containerPort: 8085

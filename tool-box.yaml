@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    wow: tool
+  name: tool
+  namespace: wow
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      wow: tool
+  template:
+    metadata:
+      labels:
+        wow: tool
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 123sqwert!
+        - name: WOW_SERVER_NAME
+          value: wow.k8s.tdlab.ca
+#        image: lacsap/cmangos-classic
+        image: chz8494/cmangos-classic:latest
+#        image: docker-pull.tdlab.ca/cmangos-classic:latest
+        name: tool-box
+        command: ["/bin/sh"]
+        args: ["-c", "tail -f /dev/null"]
+      restartPolicy: Always
