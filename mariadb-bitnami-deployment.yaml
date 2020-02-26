@@ -3,7 +3,8 @@ data:
   my.cnf: |
     [mysqladmin]
     user=root
-    
+    password=123sqwert!
+
     [mysqld]
     skip-name-resolve
     explicit_defaults_for_timestamp
@@ -11,7 +12,7 @@ data:
     port=3306
     socket=/opt/bitnami/mariadb/tmp/mysql.sock
     tmpdir=/opt/bitnami/mariadb/tmp
-    max_allowed_packet=512M
+    max_allowed_packet=256M
     bind-address=0.0.0.0
     pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
     log-error=/opt/bitnami/mariadb/logs/mysqld.log
@@ -19,6 +20,9 @@ data:
     collation-server=utf8_general_ci
     net_read_timeout=90
     net_write_timeout=90
+    connect_timeout=90
+    interactive_timeout=2147483
+    innodb_buffer_pool_size = 64M
 
     [client]
     port=3306
@@ -87,7 +91,6 @@ spec:
             command:
             - mysqladmin
             - ping
-            - $MARIADB_ROOT_PASSWORD
           failureThreshold: 3
           initialDelaySeconds: 30
           periodSeconds: 10
@@ -98,7 +101,6 @@ spec:
             command:
             - mysqladmin
             - ping
-            - $MARIADB_ROOT_PASSWORD
           failureThreshold: 3
           initialDelaySeconds: 5
           periodSeconds: 10
@@ -122,3 +124,18 @@ spec:
           defaultMode: 420
           name: config-mariadb
         name: config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    wow: db
+  name: db
+  namespace: wow
+spec:
+  ports:
+  - name: "3306"
+    port: 3306
+    targetPort: 3306
+  selector:
+    wow: mariadb
