@@ -24,6 +24,31 @@ spec:
     requests:
       storage: 4Gi
 ---
+apiVersion: v1
+data:
+  my.cnf: |
+    [mysqld]
+    skip-name-resolve
+    explicit_defaults_for_timestamp
+    max_allowed_packet=256M
+    bind-address=0.0.0.0
+    character-set-server=UTF8
+    collation-server=utf8_general_ci
+    net_read_timeout=90
+    net_write_timeout=90
+    connect_timeout=90
+    interactive_timeout=2147483
+    innodb_buffer_pool_size = 64M
+
+    [client]
+    port=3306
+    default-character-set=UTF8
+    
+kind: ConfigMap
+metadata:
+  name: config-mysql
+  namespace: wow
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -110,6 +135,8 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: data
+        - mountPath: /etc/mysql/mysql.conf.d
+          name: config
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
@@ -120,6 +147,10 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: wow-mysql
+      - configMap:
+          defaultMode: 420
+          name: config-mysql
+        name: config
 ---
 apiVersion: v1
 kind: Service
