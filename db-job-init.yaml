@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-      - image: chz8494/wow-db-init:alpine
+      - image: chz8494/wow-db-init:ubuntu
         env:
         - name: WOW_SERVER_NAME
           value: wow.k8s.tdlab.ca
@@ -16,5 +16,6 @@ spec:
         - name: MYSQL_HOST
           value: db
         name: db-init
+        imagePullPolicy: Always
       restartPolicy: OnFailure
   backoffLimit: 4
