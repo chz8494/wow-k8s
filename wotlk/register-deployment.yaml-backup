@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    wow: register
-  name: register
+    wow: register-wotlk
+  name: register-wotlk
   namespace: wow
 spec:
   replicas: 1
@@ -11,21 +11,17 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      wow: register
+      wow: register-wotlk
   template:
     metadata:
       labels:
-        wow: register
+        wow: register-wotlk
     spec:
       containers:
 #      - image: lacsap/cmangos-web-register
       - image: chz8494/cmangos-register:latest
-        name: cmangos-register
+        name: cmangos-register-wotlk
         env:
-        - name: WOW_REGISTER_SERVER
-          value: wow-register.k8s.tdlab.ca
-        - name: WEB_PASSWORD
-          value: WoW@tdlab.ca
         - name: MYSQL_HOST_CLASSIC
           value: db
         - name: MYSQL_DATABASE_CLASSIC

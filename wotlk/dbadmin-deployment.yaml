@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    wow: dbadmin
-  name: dbadmin
+    wow: dbadmin-wotlk
+  name: dbadmin-wotlk
   namespace: wow
 spec:
   replicas: 1
@@ -11,20 +11,20 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      wow: dbadmin
+      wow: dbadmin-wotlk
   template:
     metadata:
       labels:
-        wow: dbadmin
+        wow: dbadmin-wotlk
     spec:
       containers:
       - env:
         - name: PMA_HOST
-          value: db
+          value: db-wotlk
         - name: MYSQL_ROOT_PASSWORD
           value: 123sqwert!
         image: phpmyadmin/phpmyadmin
-        name: cmangos-classic-phpadmin
+        name: cmangos-wotlk-phpadmin
         ports:
         - containerPort: 80
       restartPolicy: Always

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    wow: server-wotlk
+  name: server-wotlk
+  namespace: wow
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      wow: server-wotlk
+  template:
+    metadata:
+      labels:
+        wow: server-wotlk
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 123sqwert!
+        - name: WOW_SERVER_NAME
+          value: wow-wotlk.k8s.tdlab.ca
+        - name: MYSQL_HOST
+          value: db-wotlk
+        image: chz8494/cmangos-wotlk:latest
+        name: cmangos-wotlk-server
+        ports:
+        - containerPort: 8085
+        - containerPort: 3724
+      restartPolicy: Always

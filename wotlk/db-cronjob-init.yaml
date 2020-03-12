@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-wotlk-init
+  namespace: wow
+spec:
+  schedule: "0 5 * * * "
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - image: chz8494/wow-db-wotlk-init:latest
+            env:
+            - name: WOW_SERVER_NAME
+              value: wow-wotlk.k8s.tdlab.ca
+            - name: MYSQL_ROOT_PASSWORD
+              value: 123sqwert!
+            - name: MYSQL_HOST
+              value: db-wotlk
+            name: db-wotlk-init
+            imagePullPolicy: Always
+          restartPolicy: OnFailure
+      backoffLimit: 4

@@ -2,8 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    wow: server-claim0
-  name: wow-server-claim0
+    wow: server-wotlk
+  name: wow-server-wotlk 
   namespace: wow
 spec:
   accessModes:
@@ -17,8 +17,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    wow: server
-  name: server
+    wow: server-wotlk 
+  name: server-wotlk 
   namespace: wow
 spec:
   replicas: 1
@@ -29,24 +29,22 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      wow: server
+      wow: server-wotlk 
   template:
     metadata:
       labels:
-        wow: server
+        wow: server-wotlk 
     spec:
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
           value: 123sqwert!
         - name: WOW_SERVER_NAME
-          value: wow.k8s.tdlab.ca
+          value: wow-wotlk .k8s.tdlab.ca
         - name: MYSQL_HOST
-          value: db
-#        image: lacsap/cmangos-classic
-        image: chz8494/cmangos-classic:latest
-#        image: docker-pull.tdlab.ca/cmangos-classic:latest
-        name: cmangos-classic-server
+          value: db-wotlk 
+        image: chz8494/cmangos-wotlk:latest
+        name: cmangos-wotlk-server
         ports:
         - containerPort: 8085
         - containerPort: 3724
@@ -61,12 +59,11 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 5
-
         volumeMounts:
         - mountPath: /home/mangos/run/etc/
-          name: server-claim0
+          name: server-wotlk 
       restartPolicy: Always
       volumes:
-      - name: server-claim0
+      - name: server-wotlk
         persistentVolumeClaim:
-          claimName: wow-server-claim0
+          claimName: wow-server-wotlk

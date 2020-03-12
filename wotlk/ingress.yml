@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    labels:
+      app: wow-wotlk
+    name: wow-ingress-wotlk
+    namespace: wow
+  spec:
+    rules:
+    - host: wow-register-wotlk.k8s.tdlab.ca
+      http:
+        paths:
+        - backend:
+            serviceName: wow-register-wotlk
+            servicePort: 80
+          path: /

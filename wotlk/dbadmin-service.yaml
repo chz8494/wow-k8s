@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    wow: dbadmin-wotlk
+  name: dbadmin-wotlk
+  namespace: wow
+spec:
+  ports:
+  - name: "http"
+    port: 80
+    targetPort: 80
+  selector:
+    wow: dbadmin-wotlk
+  type: ClusterIP

@@ -34,6 +34,12 @@ data:
     bind-address=0.0.0.0
     character-set-server=UTF8
     collation-server=utf8_general_ci
+    net_read_timeout=30
+    net_write_timeout=30
+    connect_timeout=630
+    interactive_timeout=630
+    innodb_buffer_pool_size=1024M
+    query_cache_size=64M
     log_error=/var/log/mysql/mysql_error.log
     general_log_file=/var/log/mysql/mysql.log
     general_log=1
@@ -83,7 +89,7 @@ spec:
               optional: true
         - name: MYSQL_USER
         - name: MYSQL_DATABASE
-        image: mysql
+        image: mysql:5.7.28
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
