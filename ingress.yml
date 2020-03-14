@@ -7,17 +7,17 @@ metadata:
   namespace: wow
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: wow-web-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
-  tls:
-  - hosts:
-    - wow-register.k8s.tdlab.ca
-    secretName: wow-register
+#  tls:
+#  - hosts:
+#    - wow-register.k8s.tdlab.ca
+#    secretName: wow-register
   rules:
-  - host: yeah.k8s.tdlab.ca
+  - host: woworld.ga
     http:
       paths:
       - backend:

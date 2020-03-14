@@ -1,3 +1,15 @@
+apiVersion: v1
+data:
+  admin-email: Y2h6ODQ5NEBnbWFpbC5jb20=
+  admin-email-password: TGFiQFdUSUMwME8=
+kind: Secret
+metadata:
+  labels:
+    wow: register
+  name: register-admin
+  namespace: wow
+type: Opaque
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,7 +35,7 @@ spec:
         name: cmangos-register
         env:
         - name: WOW_REGISTER_SERVER
-          value: wow-register.k8s.tdlab.ca
+          value: woworld.ga
         - name: WEB_PASSWORD
           value: WoW@tdlab.ca
         - name: MYSQL_HOST_CLASSIC
@@ -35,9 +47,15 @@ spec:
         - name: MYSQL_DATABASE_WOTLK
           value: wotlkrealmd
         - name: ADMIN_EMAIL
-          value: chz8494@gmail.com
+          valueFrom:
+            secretKeyRef:
+              key: admin-email-password
+              name: register-admin
         - name: ADMIN_EMAIL_PASSWORD
-          value: Lab@WTIC00O
+          valueFrom:
+            secretKeyRef:
+              key: admin-email
+              name: register-admin
         ports:
         - containerPort: 80
  #       volumeMounts:
